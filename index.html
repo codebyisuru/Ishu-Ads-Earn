@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ishu ADS & EARN</title>
+    <script src='//libtl.com/sdk.js' data-zone='10914496' data-sdk='show_10914496'></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -173,11 +174,28 @@
             document.getElementById('binance-fields').classList.toggle('hidden', method !== 'binance');
         }
 
-        function watchAd() {
-            if (tasks >= maxTasks) {
-                alert("අද දින සඳහා නියමිත Tasks ප්‍රමාණය අවසන්!");
-                return;
-            }
+       function watchAd() {
+    if (tasks >= maxTasks) {
+        alert("අද දින සඳහා නියමිත Tasks ප්‍රමාණය අවසන්!");
+        return;
+    }
+
+    if (typeof show_10914496 === 'function') {
+        show_10914496().then(() => {
+            // Ad එක බලා අවසන් වූ පසු සල්ලි සහ Tasks එකතු වේ
+            balance += 30;
+            tasks += 1;
+            localStorage.setItem('ishu_balance', balance);
+            localStorage.setItem('ishu_tasks', tasks);
+            updateDisplay();
+            alert("සුභ පැතුම්! ඔබට රු. 30.00 මුදලක් ලැබුණා.");
+        }).catch((err) => {
+            alert("Ad එක ප්ලේ වීමේදී දෝෂයක් ඇති වුණා. නැවත උත්සාහ කරන්න.");
+        });
+    } else {
+        alert("Ads තවමත් සූදානම් නැත. කරුණාකර තත්පර 10ක් රැඳී සිට නැවත උත්සාහ කරන්න.");
+    }
+}
 
             // Pick a random link from the list
             const randomLink = monetagLinks[Math.floor(Math.random() * monetagLinks.length)];
